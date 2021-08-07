@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour, ISavable
 {
@@ -30,6 +31,12 @@ public class PlayerController : MonoBehaviour, ISavable
         //Vector2 mousePos = Mouse.current.position.ReadValue
         /*if (Input.GetKeyDown(KeyCode.LeftShift))
             character.ChangeMultiplier(2f);*/
+
+        /*var gamepad = Gamepad.current;
+        if (gamepad == null)
+            return; // no gamepad connected so switch to keyboard
+
+        input = gamepad.leftStick.ReadValue();
 
         if (!character.Animator.IsMoving) {
 
@@ -62,7 +69,12 @@ public class PlayerController : MonoBehaviour, ISavable
             Interact();
 
         if (Input.GetKeyDown(KeyCode.F))
-            Fish();
+            Fish();*/
+    }
+
+    public void Move(InputAction.CallbackContext context)
+    {
+        StartCoroutine(character.Move(context.ReadValue<Vector2>(), OnMoveOver));
     }
 
     void Interact()

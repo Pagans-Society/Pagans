@@ -79,12 +79,12 @@ public class GameController : MonoBehaviour
         {
             playerController.HandleUpdate();
 
-            if (Input.GetKeyDown(KeyCode.Return))
+            /*if (Input.GetKeyDown(KeyCode.Return))
             {
                 menuController.OpenMenu();
                 Debug.Log(playerController.transform.position);
                 state = GameState.Menu;
-            }
+            }*/
         }
         else if(state == GameState.Dialog)
         {

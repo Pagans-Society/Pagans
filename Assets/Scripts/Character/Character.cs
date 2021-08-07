@@ -41,9 +41,11 @@ public class Character : MonoBehaviour
 
     public IEnumerator Move(Vector2 moveVec, Action OnMoveOver=null)
     {
+        //Debug.Log(moveVec);
         //Debug.Log($"using {speedMultiplier} multiplier");
         animator.MoveX = Mathf.Clamp(moveVec.x, -1f, 1f);
         animator.MoveY = Mathf.Clamp(moveVec.y, -1f, 1f);
+        Debug.Log("raws: " + moveVec + " clamped: "+animator.MoveX+", "+animator.MoveY);
 
         var targetPos = transform.position;
         targetPos.x += moveVec.x;
@@ -59,6 +61,7 @@ public class Character : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
             yield return null;
         }
+        Debug.Log("actual: " + transform.position + " new: " + targetPos);
         transform.position = targetPos;
 
         animator.IsMoving = false;
