@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - SolidObjects
+  - LongGrass
+  - Interactable
+  - Portal
+  - Player
+  - house
+  - Sea
+  - Foreground
+  - Background
+  - Midground
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3961675759
+    locked: 0
+  - name: Midlayer
+    uniqueID: 1606449299
+    locked: 0
+  - name: Solids
+    uniqueID: 966388283
+    locked: 0
+  - name: Foreground
+    uniqueID: 1852167881
+    locked: 0
+  - name: Player
+    uniqueID: 2365435387
+    locked: 0
+  - name: upperElements
+    uniqueID: 3142281159
+    locked: 0
