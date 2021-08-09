@@ -41,13 +41,12 @@ public class Character : MonoBehaviour
 
     public IEnumerator Move(Vector2 moveVec, Action OnMoveOver=null)
     {
-        //Debug.Log(moveVec);
-        //Debug.Log($"using {speedMultiplier} multiplier");
         animator.MoveX = Mathf.Clamp(moveVec.x, -1f, 1f);
         animator.MoveY = Mathf.Clamp(moveVec.y, -1f, 1f);
-        Debug.Log("raws: " + moveVec + " clamped: "+animator.MoveX+", "+animator.MoveY);
 
-        var targetPos = transform.position;
+        var clone = transform.position;
+
+        var targetPos = clone;
         targetPos.x += moveVec.x;
         targetPos.y += moveVec.y;
 
@@ -56,14 +55,12 @@ public class Character : MonoBehaviour
 
         animator.IsMoving = true;
 
-        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
+        while((targetPos - clone).sqrMagnitude > Mathf.Epsilon)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+            clone = Vector3.MoveTowards(clone, targetPos, moveSpeed * Time.deltaTime);
             yield return null;
         }
-        Debug.Log("actual: " + transform.position + " new: " + targetPos);
-        transform.position = targetPos;
-
+        
         animator.IsMoving = false;
 
         OnMoveOver?.Invoke();

@@ -8,73 +8,47 @@ public class PlayerController : MonoBehaviour, ISavable
 {
     [SerializeField] new string name;
     [SerializeField] Sprite sprite;
+    [SerializeField] private float speed = 0.5f;
 
     //const float offsetY = 0.3f;
 
-    private Vector2 input;
+    private PlayerInput playerInput;
+    private Rigidbody2D rb;
+    private BoxCollider2D cl;
 
     public Action OnEncountered;
 
     private Character character;
 
-    List<ItemBase> fishingObjs = new List<ItemBase>();
-
-    int firstInputAxis = 0; // 0=x, 1=y
          
     private void Awake() {
         character = GetComponent<Character>();
+        playerInput = new PlayerInput();
+        rb = GetComponent<Rigidbody2D>();
+        cl = GetComponent<BoxCollider2D>();
+    }
+
+    private void OnEnable()
+    {
+        playerInput.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerInput.Disable();
     }
 
     // Update is called once per frame
     public void HandleUpdate()
     {
-        //Vector2 mousePos = Mouse.current.position.ReadValue
-        /*if (Input.GetKeyDown(KeyCode.LeftShift))
-            character.ChangeMultiplier(2f);*/
+        Vector2 moveInput = playerInput.Freeroam.Move.ReadValue<Vector2>();
+        //rb.velocity = moveInput * speed;
+        rb.
 
-        /*var gamepad = Gamepad.current;
-        if (gamepad == null)
-            return; // no gamepad connected so switch to keyboard
-
-        input = gamepad.leftStick.ReadValue();
-
-        if (!character.Animator.IsMoving) {
-
-            input.x = Input.GetAxisRaw("Horizontal");
-            input.y = Input.GetAxisRaw("Vertical");
-
-            //annulla i movimenti diagonali
-            if(input.x != 0 && input.y != 0)
-            {
-                if (firstInputAxis == 0)
-                {
-                    input.x = 0;
-                    firstInputAxis = 1;
-                }
-                else
-                {
-                    input.y = 0;
-                    firstInputAxis = 0;
-                }
-
-            }
-
-            if(input != Vector2.zero)
-            {
-                StartCoroutine(character.Move(input, OnMoveOver));
-            }
+        if(!character.Animator.IsMoving)
+        {
+            StartCoroutine(character.Move(moveInput, OnMoveOver));
         }
-
-        if (Input.GetKeyDown(KeyCode.Z))
-            Interact();
-
-        if (Input.GetKeyDown(KeyCode.F))
-            Fish();*/
-    }
-
-    public void Move(InputAction.CallbackContext context)
-    {
-        StartCoroutine(character.Move(context.ReadValue<Vector2>(), OnMoveOver));
     }
 
     void Interact()

@@ -556,6 +556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   sprite: {fileID: 0}
+  speed: 10
 --- !u!114 &4574328256853696545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,7 +649,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -735,73 +736,12 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4574328256853696546}
-        m_MethodName: Move
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 685d7f48-0db3-4321-a79d-8ebb9685f53c
-    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow,/USB
-      Gamepad /stick]
-  - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 5c0b013a-b9f7-4b12-bc2e-d35df3262482
-    m_ActionName: Player/Look[/Mouse/delta]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: ba64ca96-78da-4858-8002-6abceb6a26fb
-    m_ActionName: Player/Fire[/Mouse/leftButton,/USB Gamepad /trigger]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 95019322-ef59-4e27-b3b7-b11fad1a2d5e
-    m_ActionName: UI/Navigate[/USB Gamepad /stick/up,/USB Gamepad /stick/down,/USB
-      Gamepad /stick/left,/USB Gamepad /stick/right,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: aca14a3d-593a-4e72-9bc2-7137a9ab59f5
-    m_ActionName: UI/Submit[/Keyboard/enter]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: a05c21ba-5d96-4073-ad1c-48ce9837d7a0
-    m_ActionName: UI/Cancel[/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 636138ca-3ccc-4018-8e43-7cfc0102034b
-    m_ActionName: UI/Point[/Mouse/position]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6dbe442b-30df-45c6-9b11-3f2543c936b8
-    m_ActionName: UI/Click[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: c60f07a0-a7bd-488d-86d7-82af67fcd80f
-    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 241cc1f4-dea5-479f-874f-961575bc06b8
-    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 4137e2c7-051c-48a2-a219-0ebdd0eef809
-    m_ActionName: UI/RightClick[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 29e2f2b7-ce5d-4d0c-b8d5-12c48a04492b
-    m_ActionName: UI/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 96eada0c-3d6a-478a-8165-695ef8451cfc
-    m_ActionName: UI/TrackedDeviceOrientation
+    m_ActionId: 229f40da-2ba0-411f-9178-f2babaa96465
+    m_ActionName: Freeroam/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard&Mouse
-  m_DefaultActionMap: Player
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Freeroam
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 4574328256411052313}
 --- !u!1 &4574328257592598108
