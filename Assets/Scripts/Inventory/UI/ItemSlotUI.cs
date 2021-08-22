@@ -16,11 +16,12 @@ public class ItemSlotUI : MonoBehaviour
 
     public Text NameText => nameText;
     public Text CountText => countText;
-    public float Height => rectTransform.rect.height;
+    public float Height => 50;//rectTransform.rect.height;
 
     public void SetData(ItemSlot itemSlot)
     {
         nameText.text = itemSlot.Item.Name;
         countText.text = $"X {itemSlot.Count}";
     }
+
 }

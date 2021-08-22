@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Fungus;
 
 public class SavingSystem : MonoBehaviour
 {
@@ -58,6 +59,7 @@ public class SavingSystem : MonoBehaviour
         {
             state[savable.UniqueId] = savable.CaptureState();
         }
+        
     }
 
     // Used to restore states of all savable objects in the game

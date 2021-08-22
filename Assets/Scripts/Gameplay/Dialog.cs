@@ -6,6 +6,8 @@ using UnityEngine;
 public class Dialog
 {
     [SerializeField] List<string> lines;
+    [SerializeField] public bool isQuestion = false;
+    [SerializeField] public DialogScript itemFunc;
 
     public List<string> Lines
     {

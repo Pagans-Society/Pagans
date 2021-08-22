@@ -7,6 +7,7 @@ public class SceneDetails : MonoBehaviour
 {
 
     [SerializeField] List<SceneDetails> connectedScenes;
+    [SerializeField] public Spawner spawner;
     public bool IsLoaded { get; private set; }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -41,7 +41,7 @@ public class MenuController : MonoBehaviour
 
         selectedItem = Mathf.Clamp(selectedItem, 0, menuItems.Count - 1);
 
-        Debug.Log(selectedItem);
+        //Debug.Log(selectedItem);
 
         if(prevSelection != selectedItem)
         {

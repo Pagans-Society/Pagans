@@ -11,12 +11,16 @@ public class GameController : MonoBehaviour
     [SerializeField] PlayerController playerController;
     [SerializeField] Camera worldCamera;
     [SerializeField] InventoryUI inventoryUI;
+    [SerializeField] GameObject controllerCanvas;
 
-    GameState state;
+    public GameState state;
     GameState stateBeforePause;
 
     public SceneDetails CurrentScene { get; private set; }
+
     public SceneDetails PrevScene { get; private set; }
+
+    public PlayerController Player { get; private set; }
 
     public static GameController Instance { get; private set; }
 
@@ -27,9 +31,6 @@ public class GameController : MonoBehaviour
         Instance = this;
         ConditionsDB.Init();
         menuController = GetComponent<MenuController>();
-
-        /*Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;*/
     }
 
     private void Start()
@@ -79,12 +80,11 @@ public class GameController : MonoBehaviour
         {
             playerController.HandleUpdate();
 
-            /*if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 menuController.OpenMenu();
-                Debug.Log(playerController.transform.position);
                 state = GameState.Menu;
-            }*/
+            }
         }
         else if(state == GameState.Dialog)
         {
@@ -101,7 +101,6 @@ public class GameController : MonoBehaviour
                 inventoryUI.gameObject.SetActive(false);
                 state = GameState.FreeRoam;
             };
-
             inventoryUI.HandleUpdate(onBack);
         }
     }
@@ -130,19 +129,18 @@ public class GameController : MonoBehaviour
             // Save
             SavingSystem.i.Save("saveSlot1");
             Debug.Log("Done.");
-            //Debug.Log(playerController.transform.position);
+            state = GameState.FreeRoam;
         }
         else if (selectedItem == 3)
         {
             // Load
             SavingSystem.i.Load("saveSlot1");
+            state = GameState.FreeRoam;
         }
         else if (selectedItem == 4)
         {
             // Exit
             Application.Quit();
         }
-
-        state = GameState.FreeRoam;
     }
 }

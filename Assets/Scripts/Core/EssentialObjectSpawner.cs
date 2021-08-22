@@ -17,7 +17,7 @@ public class EssentialObjectSpawner : MonoBehaviour
             var grid = FindObjectOfType<Grid>();
             if(grid != null)
             {
-                Debug.Log($"Spawning at {grid.transform.position} cuz no grid was found");
+                //Debug.Log($"Spawning at {grid.transform.position} cuz no grid was found");
                 spawnPos = grid.transform.position;
             }
 

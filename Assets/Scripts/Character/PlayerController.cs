@@ -2,56 +2,96 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour, ISavable
 {
     [SerializeField] new string name;
     [SerializeField] Sprite sprite;
-    [SerializeField] private float speed = 0.5f;
+    [SerializeField] InventoryUI inventoryUI;
 
     //const float offsetY = 0.3f;
 
-    private PlayerInput playerInput;
-    private Rigidbody2D rb;
-    private BoxCollider2D cl;
+    private Vector2 input;
 
     public Action OnEncountered;
 
     private Character character;
 
+    Vector2 touchOrigin;
+
+    public ItemBase equipedItem;
          
     private void Awake() {
         character = GetComponent<Character>();
-        playerInput = new PlayerInput();
-        rb = GetComponent<Rigidbody2D>();
-        cl = GetComponent<BoxCollider2D>();
-    }
-
-    private void OnEnable()
-    {
-        playerInput.Enable();
-    }
-
-    private void OnDisable()
-    {
-        playerInput.Disable();
     }
 
     // Update is called once per frame
     public void HandleUpdate()
     {
-        Vector2 moveInput = playerInput.Freeroam.Move.ReadValue<Vector2>();
-        //rb.velocity = moveInput * speed;
-        rb.
+        if (!character.Animator.IsMoving) {
 
-        if(!character.Animator.IsMoving)
-        {
-            StartCoroutine(character.Move(moveInput, OnMoveOver));
+#if UNITY_STANDALONE || UNITY_WEBPLAYER || UNITY_EDITOR
+
+            input.x = Input.GetAxisRaw("Horizontal");
+            input.y = Input.GetAxisRaw("Vertical");
+
+#elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
+            
+            if(Input.touchCount > 0)
+            {
+                Touch touch = Input.touches[Input.touches.Length-1];
+
+                if(touch.phase == TouchPhase.Began)
+                {
+                    touchOrigin = touch.position;
+                }
+
+                else if (touch.phase == TouchPhase.Ended && touchOrigin.x >= 0)
+                {
+                    Vector2 touchEnd = touch.position;
+                    float x = touchEnd.x - touchOrigin.x;
+                    float y = touchEnd.y - touchOrigin.y;
+
+                    //touchOrigin.x = -1; // per non ripetere immediatamente
+
+                    if (Mathf.Abs(x) > Mathf.Abs(y))
+                        input.x = x > 0 ? 1 : -1;
+                    else
+                        input.y = y > 0 ? 1 : -1;
+                }
+            }
+
+
+#endif
+
+            //annulla i movimenti diagonali
+            if (input.x != 0)
+                input.y = 0;
+
+            if(input != Vector2.zero)
+            {
+                StartCoroutine(character.Move(input, OnMoveOver));
+            }
         }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            if(GetFrontalCollider() != null)
+            {
+                var dropItem = Interact().GetComponent<Interactable>().getDropItem();
+                if (dropItem.Item != null)
+                {
+                    Inventory.GetInventory().AddItem(dropItem);
+                    inventoryUI.UpdateItemList();
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+            Fish();
     }
 
-    void Interact()
+    Collider2D GetFrontalCollider()
     {
         var facingDir = new Vector3(character.Animator.MoveX, character.Animator.MoveY);
         var interactPos = transform.position + facingDir;
@@ -60,10 +100,20 @@ public class PlayerController : MonoBehaviour, ISavable
         //Debug.Log("Drawing Line.");
 
         var collider = Physics2D.OverlapCircle(interactPos, 0.3f, GameLayers.i.InteractableLayer);
+
+        return collider;
+    }
+
+    Collider2D Interact()
+    {
+        var collider = GetFrontalCollider();
+
         if(collider != null)
         {
             collider.GetComponent<Interactable>()?.Interact();
         }
+
+        return collider;
     }
 
     private void CheckForEncounters() {
@@ -83,9 +133,13 @@ public class PlayerController : MonoBehaviour, ISavable
         //Debug.Log("Drawing Line.");
 
         var collider = Physics2D.OverlapCircle(interactPos, 0.3f, GameLayers.i.seaLayer);
-        if (collider != null)
+        if (collider != null && equipedItem != null && equipedItem.Name=="fishing rod")
         {
             Debug.Log("Fishing.");
+        }
+        else if(collider != null && (equipedItem == null || equipedItem.Name!= "fishing rod"))
+        {
+            StartCoroutine(DialogManager.Instance.ShowDialog(GlobalSettings.i.ToolTip));
         }
     }
 

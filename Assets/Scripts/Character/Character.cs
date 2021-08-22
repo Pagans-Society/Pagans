@@ -11,18 +11,8 @@ public class Character : MonoBehaviour
 
     public bool onBoat = false;
 
-    private const float walkingSpeedMultiplier = 1f;
-    private const float runningSpeedMultiplier = 2f;
-    private const float ridingSpeedMultiplier = 2f;
-
-    public float speedMultiplier = walkingSpeedMultiplier;
-
-    public void ChangeMultiplier(float newVal)
-    {
-        speedMultiplier = newVal;
-    }
-
     CharacterAnimator animator;
+
     private void Awake()
     {
         animator = GetComponent<CharacterAnimator>();
@@ -41,12 +31,11 @@ public class Character : MonoBehaviour
 
     public IEnumerator Move(Vector2 moveVec, Action OnMoveOver=null)
     {
+
         animator.MoveX = Mathf.Clamp(moveVec.x, -1f, 1f);
         animator.MoveY = Mathf.Clamp(moveVec.y, -1f, 1f);
 
-        var clone = transform.position;
-
-        var targetPos = clone;
+        var targetPos = transform.position;
         targetPos.x += moveVec.x;
         targetPos.y += moveVec.y;
 
@@ -55,12 +44,13 @@ public class Character : MonoBehaviour
 
         animator.IsMoving = true;
 
-        while((targetPos - clone).sqrMagnitude > Mathf.Epsilon)
+        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
         {
-            clone = Vector3.MoveTowards(clone, targetPos, moveSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
             yield return null;
         }
-        
+        transform.position = targetPos;
+
         animator.IsMoving = false;
 
         OnMoveOver?.Invoke();

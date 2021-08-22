@@ -9,17 +9,26 @@ EditorBuildSettings:
     path: Assets/Scenes/Gameplay.unity
     guid: 688fa71710e47ed4aab744ef9e55774c
   - enabled: 1
-    path: Assets/Scenes/Breidr/Breidr.unity
+    path: Assets/Scenes/Midgardr/Breidr/Breidr.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Breidr/BreidrHouse1.unity
+    path: Assets/Scenes/Midgardr/Breidr/BreidrHouse1.unity
     guid: 187121bc4ea09e643b0c1cad99571b31
   - enabled: 1
-    path: Assets/Scenes/Breidr/BreidrForge.unity
+    path: Assets/Scenes/Midgardr/Breidr/BreidrForge.unity
     guid: 26e5bd3114c972541893d39323599e44
   - enabled: 1
-    path: Assets/Scenes/Kattegat/Kattegat.unity
+    path: Assets/Scenes/Midgardr/Kattegat/Kattegat.unity
     guid: f3afdff6518e39e4aa04bfe533069aa6
+  - enabled: 1
+    path: Assets/Scenes/Midgardr/Midgardr.unity
+    guid: 18865983f930f824b8528a13b4091609
+  - enabled: 1
+    path: Assets/Scenes/Jotunheimr/Jotunheimr.unity
+    guid: 5a1ba2144d5362544be0f74ee823363d
+  - enabled: 1
+    path: Assets/Scenes/Jotunheimr/Fornburg/Fornburg.unity
+    guid: 0806ff6f733d25a49ad3da24ff55514c
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a3daee71cacae954eadc6261220de874,
       type: 2}

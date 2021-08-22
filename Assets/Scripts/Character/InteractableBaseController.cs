@@ -7,8 +7,9 @@ public class InteractableBaseController : MonoBehaviour, Interactable
 {
     [Header("Dialogue")]
     [SerializeField] public Dialog dialog;
-    [Header("Signal")]
-    [SerializeField] GameObject signal;
+
+    [Header("Drop")]
+    [SerializeField] public ItemSlot item;
 
     public void Interact()
     {
@@ -17,13 +18,11 @@ public class InteractableBaseController : MonoBehaviour, Interactable
             StartCoroutine(DialogManager.Instance.ShowDialog(dialog));
         }
 
-        try 
-        {
-            signal.SetActive(false);
-        }
-        catch (UnassignedReferenceException)
-        {
-            return;
-        }
     }
+
+    public ItemSlot getDropItem()
+    {
+        return item;
+    }
+
 }

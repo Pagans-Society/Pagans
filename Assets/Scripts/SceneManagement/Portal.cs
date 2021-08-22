@@ -47,4 +47,4 @@ public class Portal : MonoBehaviour, IPlayerTriggerable
     public Transform SpawnPoint => spawnPoint;
 }
 
-public enum DestinationIdentifier { BreidrForgeP0, BreidrForgeP1, BreidrHouse1}
+public enum DestinationIdentifier { BreidrForgeP0, BreidrForgeP1, BreidrHouse1, fornburg}

@@ -4,8 +4,5 @@ using UnityEngine;
 
 public class SignController : InteractableBaseController
 {
-    public void onRead()
-    {
-
-    }
+    
 }

@@ -23,8 +23,7 @@ public class InventoryUI : MonoBehaviour
     Inventory inventory;
     RectTransform itemListRect;
 
-    public InventoryUI Instance { get; set; }
-    public ItemSlotUI ItmSlotsUi => itemSlotUI;
+    public ItemSlotUI ItemSlotsUI => itemSlotUI;
 
     private void Awake()
     {
@@ -46,12 +45,15 @@ public class InventoryUI : MonoBehaviour
 
         // set
         slotUIList = new List<ItemSlotUI>();
-        foreach(var itemSlot in inventory.Slots)
+        foreach (var itemSlot in inventory.Slots)
         {
-            Debug.Log($"{itemSlot.Item.Name}");
-
+            // create a child
             var slotUIObj = Instantiate(itemSlotUI, itemList.transform);
+
+            // set data into the child
             slotUIObj.SetData(itemSlot);
+
+            // add to the list
             slotUIList.Add(slotUIObj);
         }
 
@@ -79,16 +81,54 @@ public class InventoryUI : MonoBehaviour
             onBack?.Invoke();
         }
 
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            Debug.Log("Switching");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Z)) // Equip
+        {
+            Debug.Log($"selected item index: {selectedItem}, wich is {inventory.Slots[selectedItem].Item.Name}");
+            FindObjectOfType<PlayerController>().equipedItem = Inventory.GetInventory().Slots[selectedItem].Item;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            if(Inventory.GetInventory().Slots[selectedItem].Item == FindObjectOfType<PlayerController>().equipedItem)
+                FindObjectOfType<PlayerController>().equipedItem = null;
+    }
+
+    void Add(ItemSlot itemSlot)
+    {
+        // create a child
+        var slotUIObj = Instantiate(itemSlotUI, itemList.transform);
+
+        // set data into the child
+        slotUIObj.SetData(itemSlot);
+
+        // add to the list
+        slotUIList.Add(slotUIObj);
     }
 
     void UpdateItemSelection()
     {
         for (int i = 0; i < slotUIList.Count; i++)
         {
-            if (i == selectedItem)
-                slotUIList[i].NameText.color = GlobalSettings.i.HighlightedColor;
-            else
-                slotUIList[i].NameText.color = Color.black;
+            try
+            {
+                if (i == selectedItem)
+                    slotUIList[i].NameText.color = GlobalSettings.i.HighlightedColor;
+
+                else
+                    slotUIList[i].NameText.color = Color.black;
+            }
+            catch (NullReferenceException)
+            {
+                Debug.Log("rotto il cazzo eh");
+            }
+
+            /*Debug.Log($"selected item is {inventory.Slots[selectedItem]}");
+            if (inventory.Slots[selectedItem].Item == player.equipedItem)
+                slotUIList[i].NameText.color = GlobalSettings.i.EquipedColor;*/
         }
 
         var item = inventory.Slots[selectedItem].Item;
@@ -108,15 +148,5 @@ public class InventoryUI : MonoBehaviour
 
         bool showDownArrow = selectedItem + itemsInViewport / 2 < slotUIList.Count;
         downArrow.gameObject.SetActive(showDownArrow);
-
-    }
-
-    public void AddItem(ItemBase item)
-    {
-        var itemSlot = new ItemSlot();
-        itemSlot.Init(item, 1);
-        var newItem = itemList.AddComponent<ItemSlotUI>();
-        newItem.SetData(itemSlot);
-        UpdateItemList();
     }
 }
